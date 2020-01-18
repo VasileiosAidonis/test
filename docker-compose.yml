@@ -5,6 +5,7 @@ nginx:
     - php
   ports:
     - "80:80"
+
 php:
   build: images/php
   volumes:
@@ -29,8 +30,9 @@ php:
     DB_PASSWORD: pass
     MEMCACHED_HOST: cache
     CACHE_DRIVER: memcached
+
 mysql:
-  image: mysql
+  image: mysql:5.7
   container_name: billings
   volumes:
     - ./images/mysql/data/:/var/lib/mysql
@@ -41,5 +43,9 @@ mysql:
     MYSQL_DATABASE: billings
     MYSQL_USER: root
     MYSQL_PASSWORD: pass
+
 cache:
   image: memcached
+
+networks:
+  billings:
