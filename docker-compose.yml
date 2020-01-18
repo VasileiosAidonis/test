@@ -46,6 +46,3 @@ mysql:
 
 cache:
   image: memcached
-
-networks:
-  billings:
