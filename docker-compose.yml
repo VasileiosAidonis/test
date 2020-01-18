@@ -12,7 +12,7 @@ php:
   working_dir: /var/www/html/app/public
   command: php-fpm
   links:
-    - billingsdb
+    - mysql
     - cache
   ports:
     - "9000:9000"
@@ -23,21 +23,23 @@ php:
     APP_LOCALE: en
     APP_FALLBACK_LOCALE: en
     DB_CONNECTION: mysql
-    DB_HOST: billingsdb
+    DB_HOST: mysql
     DB_DATABASE: billings
     DB_USERNAME: root
-    DB_PASSWORD:
+    DB_PASSWORD: pass
     MEMCACHED_HOST: cache
     CACHE_DRIVER: memcached
-billingsdb:
+mysql:
   image: mysql
-  container_name: billing
+  container_name: billings
+  volumes:
+    - ./images/mysql/data/:/var/lib/mysql
   ports:
     - "3306:3306"
   environment:
-    MYSQL_ROOT_PASSWORD:
+    MYSQL_ROOT_PASSWORD: pass
     MYSQL_DATABASE: billings
     MYSQL_USER: root
-    MYSQL_PASSWORD:
+    MYSQL_PASSWORD: pass
 cache:
   image: memcached
